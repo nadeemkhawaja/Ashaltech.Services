@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ashaltech Services | Cisco Data Center Consulting</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --bg: #0a0e1a; --bg2: #0f1525; --bg3: #141b2d; --bg4: #1a2238;
+      --accent: #00b4d8; --accent2: #48cae4; --accent3: #0077b6;
+      --glow: rgba(0,180,216,0.18); --glowsm: rgba(0,180,216,0.08);
+      --text: #e2e8f0; --textmid: #8892a4; --textmuted: #4a5568;
+      --border: rgba(0,180,216,0.22); --borderfaint: rgba(0,180,216,0.10);
+      --radius: 10px; --font: 'Segoe UI', system-ui, sans-serif; --tr: 0.25s ease;
+    }
+    body { background:var(--bg); color:var(--text); font-family:var(--font); line-height:1.72; overflow-x:hidden; }
+    a { text-decoration:none; color:inherit; } ul { list-style:none; }
+    ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--bg); }
+    ::-webkit-scrollbar-thumb { background:var(--accent3); border-radius:3px; }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:999; height:70px; display:flex; align-items:center; justify-content:space-between; padding:0 5vw; background:rgba(10,14,26,0.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); transition:background var(--tr); }
+    .nav-logo { display:flex; align-items:center; gap:11px; }
+    .nav-logo img { height:40px; filter:brightness(1.1); }
+    .nav-logo-text .name { font-size:1.05rem; font-weight:800; color:var(--text); letter-spacing:0.04em; display:block; }
+    .nav-logo-text .sub { font-size:0.68rem; font-weight:600; color:var(--accent); letter-spacing:0.12em; text-transform:uppercase; display:block; }
+    .nav-links { display:flex; align-items:center; gap:2.2rem; }
+    .nav-links a { font-size:0.88rem; font-weight:600; color:var(--textmid); position:relative; transition:color var(--tr); }
+    .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:1.5px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform var(--tr); }
+    .nav-links a:hover { color:var(--accent2); } .nav-links a:hover::after { transform:scaleX(1); }
+    .nav-btn { background:var(--accent); color:var(--bg); padding:9px 22px; border-radius:7px; font-size:0.85rem; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; box-shadow:0 4px 18px rgba(0,180,216,0.35); transition:all var(--tr); }
+    .nav-btn:hover { background:var(--accent2); transform:translateY(-1px); }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+    .hamburger span { display:block; width:24px; height:2px; background:var(--textmid); border-radius:2px; transition:all 0.3s; }
+    .hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .hamburger.active span:nth-child(2) { opacity:0; }
+    .hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+    .mobile-menu { display:none; position:fixed; top:70px; left:0; right:0; background:rgba(10,14,26,0.97); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:1.5rem 5vw 2rem; flex-direction:column; z-index:998; }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a { padding:0.85rem 0; border-bottom:1px solid var(--borderfaint); font-size:0.95rem; font-weight:600; color:var(--textmid); transition:color var(--tr); }
+    .mobile-menu a:hover { color:var(--accent); }
+
+    /* HERO */
+    .hero { position:relative; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:120px 6vw 80px; overflow:hidden; }
+    .hero-bg { position:absolute; inset:0; z-index:0; background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1800&q=80'); background-size:cover; background-position:center; background-attachment:fixed; filter:brightness(0.18) saturate(0.4); }
+    .hero-overlay { position:absolute; inset:0; z-index:1; background:radial-gradient(ellipse 90% 60% at 50% 40%, rgba(0,119,182,0.18) 0%, transparent 70%), linear-gradient(to bottom, rgba(10,14,26,0.2) 0%, rgba(10,14,26,0.9) 100%); }
+    .hero-content { position:relative; z-index:2; max-width:900px; }
+    .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(0,180,216,0.1); border:1px solid rgba(0,180,216,0.35); color:var(--accent2); padding:7px 18px; border-radius:50px; font-size:0.75rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:2rem; }
+    .hero-badge::before { content:'◆'; font-size:0.45rem; }
+    .hero h1 { font-size:clamp(2rem,5.5vw,4.2rem); font-weight:900; line-height:1.12; letter-spacing:-0.025em; margin-bottom:1.5rem; }
+    .hero h1 .grad { background:linear-gradient(135deg, var(--accent), var(--accent2), #90e0ef); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .hero p { font-size:clamp(1rem,1.8vw,1.18rem); color:var(--textmid); max-width:640px; margin:0 auto 2.8rem; }
+    .hero-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    .btn-primary { background:var(--accent); color:var(--bg); padding:15px 36px; border-radius:8px; font-weight:800; font-size:0.93rem; letter-spacing:0.05em; text-transform:uppercase; box-shadow:0 0 28px rgba(0,180,216,0.4); transition:all var(--tr); }
+    .btn-primary:hover { background:var(--accent2); transform:translateY(-2px); box-shadow:0 0 42px rgba(0,180,216,0.55); }
+    .btn-outline { border:1.5px solid rgba(0,180,216,0.45); color:var(--text); padding:14px 36px; border-radius:8px; font-weight:700; font-size:0.93rem; transition:all var(--tr); }
+    .btn-outline:hover { border-color:var(--accent); background:var(--glowsm); transform:translateY(-2px); }
+    .hero-stats { display:flex; gap:3.5rem; justify-content:center; flex-wrap:wrap; margin-top:4.5rem; padding-top:3.5rem; border-top:1px solid rgba(0,180,216,0.18); }
+    .stat-val { font-size:2.2rem; font-weight:900; color:var(--accent2); line-height:1; }
+    .stat-lbl { font-size:0.75rem; color:var(--textmuted); letter-spacing:0.1em; text-transform:uppercase; margin-top:4px; }
+
+    /* SECTIONS */
+    section { padding:96px 6vw; }
+    .inner { max-width:1120px; margin:0 auto; }
+    .sec-label { font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:0.7rem; display:flex; align-items:center; gap:10px; }
+    .sec-label::before { content:''; display:block; width:28px; height:1.5px; background:var(--accent); flex-shrink:0; }
+    .sec-title { font-size:clamp(1.8rem,3vw,2.6rem); font-weight:900; letter-spacing:-0.02em; line-height:1.15; margin-bottom:1rem; }
+    .sec-sub { color:var(--textmid); font-size:1.05rem; max-width:580px; margin-bottom:3.5rem; }
+
+    /* ABOUT */
+    #about { background:var(--bg2); }
+    .about-wrap { display:grid; grid-template-columns:1.1fr 0.9fr; gap:5rem; align-items:start; }
+    .about-body p { color:var(--textmid); margin-bottom:1.15rem; font-size:0.97rem; }
+    .about-chips { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:2.5rem; }
+    .chip { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); padding:1.2rem 1.3rem; transition:border-color var(--tr), transform var(--tr); }
+    .chip:hover { border-color:var(--accent); transform:translateY(-2px); }
+    .chip-icon { font-size:1.5rem; margin-bottom:0.5rem; }
+    .chip h4 { font-size:0.88rem; font-weight:800; color:var(--text); margin-bottom:0.25rem; }
+    .chip p { font-size:0.8rem; color:var(--textmuted); margin:0; }
+    .about-panel { background:var(--bg3); border:1px solid var(--border); border-radius:14px; padding:2rem 2.2rem; position:sticky; top:90px; }
+    .panel-title { font-size:0.75rem; font-weight:700; color:var(--textmuted); letter-spacing:0.12em; text-transform:uppercase; border-bottom:1px solid var(--borderfaint); padding-bottom:0.9rem; margin-bottom:0.5rem; }
+    .cert-item { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.85rem 0; border-bottom:1px solid var(--borderfaint); font-size:0.9rem; font-weight:500; color:var(--textmid); }
+    .cert-item:last-child { border-bottom:none; }
+    .pill { background:rgba(0,180,216,0.1); border:1px solid rgba(0,180,216,0.28); color:var(--accent); padding:3px 11px; border-radius:50px; font-size:0.7rem; font-weight:700; white-space:nowrap; flex-shrink:0; }
+
+    /* SERVICES */
+    #services { background:var(--bg); position:relative; }
+    #services::before { content:''; position:absolute; inset:0; background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=60'); background-size:cover; background-position:center; filter:brightness(0.04) saturate(0.2); pointer-events:none; }
+    #services .inner { position:relative; z-index:1; }
+    .services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:1.4rem; }
+    .svc-card { background:rgba(15,21,37,0.88); backdrop-filter:blur(8px); border:1px solid var(--border); border-radius:var(--radius); padding:2rem 2.1rem; position:relative; overflow:hidden; transition:transform var(--tr), border-color var(--tr), box-shadow var(--tr); }
+    .svc-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2.5px; background:linear-gradient(90deg, var(--accent3), var(--accent2)); transform:scaleX(0); transform-origin:left; transition:transform var(--tr); }
+    .svc-card:hover { transform:translateY(-5px); border-color:rgba(0,180,216,0.45); box-shadow:0 16px 48px rgba(0,0,0,0.5); }
+    .svc-card:hover::before { transform:scaleX(1); }
+    .svc-icon { width:50px; height:50px; background:var(--glowsm); border:1px solid var(--border); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:1.2rem; }
+    .svc-card h3 { font-size:1.05rem; font-weight:800; margin-bottom:0.65rem; }
+    .svc-card p { color:var(--textmuted); font-size:0.87rem; line-height:1.65; margin-bottom:1.1rem; }
+    .svc-tags { display:flex; flex-wrap:wrap; gap:5px; }
+    .stag { background:rgba(0,180,216,0.07); border:1px solid rgba(0,180,216,0.2); color:var(--accent); padding:3px 10px; border-radius:50px; font-size:0.7rem; font-weight:700; }
+
+    /* WHY */
+    #why { background:var(--bg2); }
+    .why-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1.4rem; }
+    .why-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); padding:2rem 1.8rem; text-align:center; transition:border-color var(--tr), transform var(--tr); }
+    .why-card:hover { border-color:var(--accent); transform:translateY(-3px); }
+    .why-num { font-size:2.8rem; font-weight:900; color:var(--accent); line-height:1; margin-bottom:0.6rem; }
+    .why-card h4 { font-size:0.95rem; font-weight:800; margin-bottom:0.5rem; }
+    .why-card p { color:var(--textmuted); font-size:0.83rem; line-height:1.6; }
+
+    /* CONTACT */
+    #contact { background:var(--bg); position:relative; overflow:hidden; }
+    #contact::before { content:''; position:absolute; inset:0; background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=50'); background-size:cover; background-position:center bottom; background-attachment:fixed; filter:brightness(0.04) saturate(0.2); }
+    #contact .inner { position:relative; z-index:1; }
+    .contact-wrap { display:grid; grid-template-columns:1fr 1.5fr; gap:4.5rem; align-items:start; }
+    .contact-info p { color:var(--textmid); font-size:0.97rem; margin-bottom:2.5rem; }
+    .ci-item { display:flex; gap:14px; align-items:flex-start; margin-bottom:1.6rem; }
+    .ci-icon-box { width:42px; height:42px; flex-shrink:0; background:var(--glowsm); border:1px solid var(--border); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1rem; }
+    .ci-body h5 { font-size:0.73rem; font-weight:700; color:var(--textmuted); text-transform:uppercase; letter-spacing:0.09em; margin-bottom:3px; }
+    .ci-body p, .ci-body a { font-size:0.93rem; color:var(--textmid); margin:0; }
+    .ci-body a { color:var(--accent); transition:color var(--tr); }
+    .ci-body a:hover { color:var(--accent2); }
+    .cform { background:rgba(10,14,26,0.92); backdrop-filter:blur(12px); border:1px solid var(--border); border-radius:16px; padding:2.8rem 2.5rem; }
+    .cform h3 { font-size:1.2rem; font-weight:800; margin-bottom:1.8rem; }
+    .frow2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .fg { margin-bottom:1.15rem; }
+    .fg label { display:block; font-size:0.76rem; font-weight:700; color:var(--textmuted); letter-spacing:0.07em; text-transform:uppercase; margin-bottom:6px; }
+    .fg input, .fg select, .fg textarea { width:100%; background:var(--bg3); border:1px solid var(--borderfaint); border-radius:8px; padding:11px 14px; color:var(--text); font-size:0.91rem; font-family:var(--font); outline:none; appearance:none; transition:border-color var(--tr), box-shadow var(--tr); }
+    .fg input::placeholder, .fg textarea::placeholder { color:var(--textmuted); }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(0,180,216,0.14); }
+    .fg select option { background:var(--bg3); }
+    .fg textarea { resize:vertical; min-height:112px; }
+    .fsub { width:100%; background:var(--accent); color:var(--bg); border:none; padding:14px; border-radius:9px; font-weight:900; font-size:0.95rem; font-family:var(--font); cursor:pointer; letter-spacing:0.06em; text-transform:uppercase; transition:all var(--tr); box-shadow:0 4px 20px rgba(0,180,216,0.35); }
+    .fsub:hover { background:var(--accent2); transform:translateY(-2px); }
+
+    /* FOOTER */
+    footer { background:#060910; border-top:1px solid var(--border); padding:3rem 6vw 2rem; }
+    .footer-inner { max-width:1120px; margin:0 auto; }
+    .footer-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; padding-bottom:2rem; border-bottom:1px solid var(--borderfaint); }
+    .flogo { display:flex; align-items:center; gap:11px; }
+    .flogo img { height:32px; }
+    .flogo-text .name { font-size:0.95rem; font-weight:800; display:block; }
+    .flogo-text .sub { font-size:0.65rem; color:var(--accent); letter-spacing:0.1em; text-transform:uppercase; display:block; }
+    .fnav { display:flex; gap:2rem; flex-wrap:wrap; }
+    .fnav a { color:var(--textmuted); font-size:0.85rem; font-weight:500; transition:color var(--tr); }
+    .fnav a:hover { color:var(--accent); }
+    .fbottom { padding-top:1.5rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; }
+    .fbottom p { font-size:0.78rem; color:var(--textmuted); }
+    .fbottom span { color:var(--accent); }
+
+    /* ANIMATIONS */
+    .fu { opacity:0; transform:translateY(28px); transition:opacity 0.65s ease, transform 0.65s ease; }
+    .fu.vis { opacity:1; transform:translateY(0); }
+
+    /* RESPONSIVE */
+    @media(max-width:960px) {
+      .about-wrap { grid-template-columns:1fr; gap:3rem; }
+      .about-panel { position:static; }
+      .contact-wrap { grid-template-columns:1fr; gap:3rem; }
+    }
+    @media(max-width:680px) {
+      .nav-links, .nav-btn { display:none; }
+      .hamburger { display:flex; }
+      .about-chips { grid-template-columns:1fr; }
+      .frow2 { grid-template-columns:1fr; }
+      .hero-stats { gap:2rem; }
+      .footer-top { flex-direction:column; align-items:flex-start; }
+      .fbottom { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mn">
+  <a href="#hero" class="nav-logo">
+    <img src="https://ashaltech.com/img/ashaltech-logo.png" alt="Ashaltech" onerror="this.style.display='none'" />
+    <div class="nav-logo-text">
+      <span class="name">Ashaltech Services</span>
+      <span class="sub">Data Center Consulting</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">Who We Are</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-btn">Let's Talk</a>
+  <div class="hamburger" id="hbg" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mm">
+  <a href="#about" onclick="toggleMenu()">Who We Are</a>
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#why" onclick="toggleMenu()">Why Us</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+  <a href="#contact" onclick="toggleMenu()" class="nav-btn" style="text-align:center;margin-top:1rem;border:none;">Let's Talk</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Cisco Authorized — Data Center Specialists</div>
+    <h1>Enterprise Data Center<br/><span class="grad">Network Excellence</span></h1>
+    <p>Specialized consulting for Cisco ACI, NDFC/VXLAN, and Nexus fabric design, deployment, and migration — built exclusively for modern data center environments.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#contact" class="btn-outline">Schedule Consultation</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val">15+</div><div class="stat-lbl">Years Experience</div></div>
+      <div class="stat"><div class="stat-val">50+</div><div class="stat-lbl">DC Projects</div></div>
+      <div class="stat"><div class="stat-val">100%</div><div class="stat-lbl">DC Focused</div></div>
+      <div class="stat"><div class="stat-val">CCNP</div><div class="stat-lbl">DC Certified</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner">
+    <div class="about-wrap">
+      <div class="about-body fu">
+        <div class="sec-label">Who We Are</div>
+        <h2 class="sec-title">Ashaltech Services</h2>
+        <p>We are a boutique Cisco data center consulting firm with deep, hands-on expertise in software-defined fabric design and modern spine-leaf architectures. Our practice is singular in focus — <strong style="color:var(--text)">we work exclusively on data center network infrastructure.</strong></p>
+        <p>Our senior engineers bring real-world experience from enterprise, financial, and service-provider data centers across North America and the Middle East. From greenfield ACI fabrics to VXLAN/EVPN spine-leaf migrations, we deliver complex programs at scale — on time and without disruption.</p>
+        <p>We are your trusted partner from initial architecture through production deployment — providing HLD, LLD, implementation runbooks, and full as-built documentation on every engagement.</p>
+        <div class="about-chips">
+          <div class="chip"><div class="chip-icon">🏗️</div><h4>Architecture First</h4><p>Every design aligns to Cisco CVD best practices before a single cable is touched.</p></div>
+          <div class="chip"><div class="chip-icon">⚡</div><h4>Hands-On Delivery</h4><p>We configure. We migrate. We own outcomes — not just recommendations.</p></div>
+          <div class="chip"><div class="chip-icon">🔄</div><h4>Zero-Downtime Migration</h4><p>Proven phased methodologies that protect production traffic throughout.</p></div>
+          <div class="chip"><div class="chip-icon">📋</div><h4>Full Documentation</h4><p>HLD, LLD, runbooks, and verified as-built deliverables on every engagement.</p></div>
+        </div>
+      </div>
+      <div class="about-panel fu">
+        <div class="panel-title">Expertise &amp; Certifications</div>
+        <div class="cert-item"><span>Cisco ACI — Fabric &amp; Policy</span><span class="pill">Expert</span></div>
+        <div class="cert-item"><span>NDFC / DCNM Deployment</span><span class="pill">Cisco</span></div>
+        <div class="cert-item"><span>VXLAN / BGP EVPN Fabrics</span><span class="pill">Advanced</span></div>
+        <div class="cert-item"><span>Nexus 9k / 7k / 5k Platforms</span><span class="pill">Hardware</span></div>
+        <div class="cert-item"><span>Spine-Leaf Architecture</span><span class="pill">CVD</span></div>
+        <div class="cert-item"><span>ACI Multi-Site / Multi-Pod</span><span class="pill">MSO</span></div>
+        <div class="cert-item"><span>VMware vCenter Integration</span><span class="pill">Virtual</span></div>
+        <div class="cert-item"><span>Cisco UCS &amp; Intersight</span><span class="pill">Compute</span></div>
+        <div class="cert-item"><span>CCNP Data Center</span><span class="pill">Certified</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="inner">
+    <div class="sec-label">What We Do</div>
+    <h2 class="sec-title fu">Data Center Network Services</h2>
+    <p class="sec-sub fu">End-to-end Cisco data center consulting — from initial design through production deployment and beyond. Every engagement is delivered by senior engineers who have done it before, at scale.</p>
+    <div class="services-grid">
+      <div class="svc-card fu">
+        <div class="svc-icon">🧠</div>
+        <h3>Cisco ACI Design &amp; Deployment</h3>
+        <p>Full lifecycle ACI engagements — fabric architecture, tenant/EPG policy modeling, APIC configuration, and zero-downtime production cutovers.</p>
+        <div class="svc-tags"><span class="stag">ACI Fabric</span><span class="stag">APIC</span><span class="stag">Multi-Pod</span><span class="stag">Multi-Site</span></div>
+      </div>
+      <div class="svc-card fu">
+        <div class="svc-icon">🔗</div>
+        <h3>NDFC / VXLAN-EVPN Fabrics</h3>
+        <p>Design and deploy NDFC-managed VXLAN/BGP EVPN spine-leaf fabrics — ideal for NX-OS environments requiring automated overlay provisioning.</p>
+        <div class="svc-tags"><span class="stag">NDFC</span><span class="stag">VXLAN</span><span class="stag">BGP EVPN</span><span class="stag">Spine-Leaf</span></div>
+      </div>
+      <div class="svc-card fu">
+        <div class="svc-icon">🏛️</div>
+        <h3>Nexus Switching Design</h3>
+        <p>Cisco Nexus 9000/7000/5000 platform design — vPC, FEX, spanning-tree elimination, and high-availability underlay for mission-critical data centers.</p>
+        <div class="svc-tags"><span class="stag">Nexus 9k</span><span class="stag">vPC</span><span class="stag">NX-OS</span><span class="stag">FEX</span></div>
+      </div>
+      <div class="svc-card fu">
+        <div class="svc-icon">🔄</div>
+        <h3>DC Network Migration</h3>
+        <p>Migrate from legacy three-tier architectures to modern spine-leaf fabrics with phased runbooks, cutover planning, and full rollback procedures.</p>
+        <div class="svc-tags"><span class="stag">Legacy Migration</span><span class="stag">Phased Cutover</span><span class="stag">Rollback Plan</span></div>
+      </div>
+      <div class="svc-card fu">
+        <div class="svc-icon">🔍</div>
+        <h3>Data Center Assessment</h3>
+        <p>Comprehensive gap analysis, redundancy review, capacity planning, and a prioritized technology roadmap aligned to your business objectives.</p>
+        <div class="svc-tags"><span class="stag">Gap Analysis</span><span class="stag">Capacity Planning</span><span class="stag">Roadmap</span></div>
+      </div>
+      <div class="svc-card fu">
+        <div class="svc-icon">📐</div>
+        <h3>HLD / LLD Documentation</h3>
+        <p>Vendor-quality high-level and low-level design documents — topology diagrams, IP addressing plans, VRF/tenant design, and full as-built deliverables.</p>
+        <div class="svc-tags"><span class="stag">High-Level Design</span><span class="stag">Low-Level Design</span><span class="stag">As-Built</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="inner">
+    <div class="sec-label">Why Choose Us</div>
+    <h2 class="sec-title fu">Senior Expertise. Proven Results.</h2>
+    <p class="sec-sub fu">Our engineers bring focused, senior-level expertise to every engagement — delivering architectures that are scalable, resilient, and built to last.</p>
+    <div class="why-grid">
+      <div class="why-card fu">
+        <div class="why-num">DC</div>
+        <h4>Deep Specialization</h4>
+        <p>Deep specialization in data center fabric design means faster delivery, fewer risks, and better outcomes for your infrastructure.</p>
+      </div>
+      <div class="why-card fu">
+        <div class="why-num">15+</div>
+        <h4>Years in the Field</h4>
+        <p>Senior engineers with real deployments across Fortune 500 enterprises, financial institutions, and service providers.</p>
+      </div>
+      <div class="why-card fu">
+        <div class="why-num">CVD</div>
+        <h4>Cisco Validated</h4>
+        <p>Every architecture is grounded in Cisco CVD frameworks — ensuring reliability, supportability, and long-term operational stability.</p>
+      </div>
+      <div class="why-card fu">
+        <div class="why-num">24h</div>
+        <h4>Fast Response</h4>
+        <p>Rapid turnaround on assessments, proposals, and critical escalations. We move at the speed your project demands.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="inner">
+    <div class="contact-wrap">
+      <div class="contact-info fu">
+        <div class="sec-label">Get in Touch</div>
+        <h2 class="sec-title">Let's Talk About Your Data Center</h2>
+        <p>Planning a fabric upgrade, need a second opinion on your ACI design, or looking for a trusted partner for a complex migration? Reach out — we respond within one business day.</p>
+        <div class="ci-item">
+          <div class="ci-icon-box">📧</div>
+          <div class="ci-body"><h5>Email</h5><p><a href="mailto:ashaltech.services@yahoo.com">ashaltech.services@yahoo.com</a></p></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon-box">🌐</div>
+          <div class="ci-body"><h5>Website</h5><p><a href="https://ashaltech.io" target="_blank">ashaltech.io</a></p></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon-box">📍</div>
+          <div class="ci-body"><h5>Location</h5><p>Dallas, TX — USA</p></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon-box">⏱️</div>
+          <div class="ci-body"><h5>Response Time</h5><p>Within 1 business day</p></div>
+        </div>
+      </div>
+      <div class="cform fu">
+        <h3>Send Us a Message</h3>
+        <div class="frow2">
+          <div class="fg"><label>First Name</label><input type="text" placeholder="John" /></div>
+          <div class="fg"><label>Last Name</label><input type="text" placeholder="Smith" /></div>
+        </div>
+        <div class="fg"><label>Work Email</label><input type="email" placeholder="john@company.com" /></div>
+        <div class="fg"><label>Company</label><input type="text" placeholder="Your Company" /></div>
+        <div class="fg">
+          <label>Service of Interest</label>
+          <select>
+            <option value="">Select a service…</option>
+            <option>Cisco ACI Design &amp; Deployment</option>
+            <option>NDFC / VXLAN-EVPN Fabric</option>
+            <option>Nexus Switching Design</option>
+            <option>Data Center Migration</option>
+            <option>Data Center Assessment</option>
+            <option>HLD / LLD Documentation</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea placeholder="Describe your project, current environment, or challenges you are facing…"></textarea></div>
+        <button type="button" class="fsub" id="sb">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="flogo">
+        <img src="https://ashaltech.com/img/ashaltech-logo.png" alt="Ashaltech" onerror="this.style.display='none'" />
+        <div class="flogo-text">
+          <span class="name">Ashaltech Services</span>
+          <span class="sub">Cisco Data Center Consulting</span>
+        </div>
+      </div>
+      <div class="fnav">
+        <a href="#about">Who We Are</a>
+        <a href="#services">Services</a>
+        <a href="#why">Why Us</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="fbottom">
+      <p>© 2025 Ashaltech Services. All rights reserved.</p>
+      <p>Cisco ACI · NDFC · Nexus · <span>ashaltech.io</span></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mm').classList.toggle('open');
+    document.getElementById('hbg').classList.toggle('active');
+  }
+  window.addEventListener('scroll', () => {
+    document.getElementById('mn').style.background =
+      window.scrollY > 40 ? 'rgba(6,9,16,0.97)' : 'rgba(10,14,26,0.88)';
+  });
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+  document.getElementById('sb').addEventListener('click', function() {
+    this.textContent = '✓ Message Sent!';
+    this.style.background = 'var(--accent3)';
+    setTimeout(() => { this.textContent = 'Send Message →'; this.style.background = ''; }, 3500);
+  });
+</script>
+</body>
+</html>
