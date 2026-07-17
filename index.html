@@ -20,7 +20,7 @@
       --text-muted: #64748b;
       --border-subtle: rgba(255, 255, 255, 0.06);
       --border-accent: rgba(14, 165, 233, 0.3);
-      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -157,23 +157,15 @@
     .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
     .reveal.active { opacity: 1; transform: translateY(0); }
 
-    @media (max-width: 968px) {
-      .about-layout, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-      .nav-links { display: none; }
-    }
+    @media (max-width: 968px) { .about-layout, .contact-grid { grid-template-columns: 1fr; gap: 48px; } .nav-links { display: none; } }
   </style>
 </head>
 <body>
-
   <div class="mesh-gradient"></div>
-
   <nav>
     <a href="#" class="logo">
       <img src="https://ashaltech.com/img/ashaltech-logo.png" alt="Ashaltech" class="logo-img" onerror="this.style.display='none'">
-      <div class="logo-text">
-        <span class="logo-name">Ashaltech</span>
-        <span class="logo-tag">Services</span>
-      </div>
+      <div class="logo-text"><span class="logo-name">Ashaltech</span><span class="logo-tag">Services</span></div>
     </a>
     <ul class="nav-links">
       <li><a href="#about">Expertise</a></li>
@@ -183,7 +175,6 @@
     </ul>
     <a href="#contact" class="cta-btn">Get Started</a>
   </nav>
-
   <section class="hero" id="hero">
     <div class="hero-content">
       <span class="hero-label">Cisco Authorized Consulting</span>
@@ -195,14 +186,13 @@
       </div>
     </div>
   </section>
-
   <section id="about">
     <div class="section-container">
       <div class="about-layout">
         <div class="about-text reveal">
           <span class="section-tag">Who We Are</span>
           <h2 class="section-title">Specialized. Focused. Proven.</h2>
-          <p>We are a boutique Cisco data center consulting firm. We don't do general networking; we work exclusively on software-defined fabric design and modern spine-leaf architectures.</p>
+          <p>We are a boutique Cisco data center consulting firm. We work exclusively on software-defined fabric design and modern spine-leaf architectures.</p>
           <p>Our mission is to deliver complex, mission-critical infrastructure programs with surgical precision and zero disruption.</p>
         </div>
         <div class="about-expertise reveal">
@@ -218,7 +208,6 @@
       </div>
     </div>
   </section>
-
   <section id="services" style="background: rgba(15, 23, 42, 0.3);">
     <div class="section-container">
       <div class="section-header reveal">
@@ -259,7 +248,6 @@
       </div>
     </div>
   </section>
-
   <section id="contact">
     <div class="section-container">
       <div class="contact-grid">
@@ -267,33 +255,19 @@
           <span class="section-tag">Get In Touch</span>
           <h2 class="section-title">Let's Solve Your Infrastructure Challenges</h2>
           <p style="color: var(--text-dim); margin-bottom: 40px;">Planning an upgrade or need a second opinion? We respond within one business day.</p>
-          
           <div class="info-item">
             <div class="info-icon">📧</div>
-            <div class="info-content">
-              <h4>Email Us</h4>
-              <p>ashaltech.services@yahoo.com</p>
-            </div>
+            <div class="info-content"><h4>Email Us</h4><p>ashaltech.services@yahoo.com</p></div>
           </div>
           <div class="info-item">
             <div class="info-icon">📍</div>
-            <div class="info-content">
-              <h4>Location</h4>
-              <p>Dallas, TX — USA</p>
-            </div>
+            <div class="info-content"><h4>Location</h4><p>Dallas, TX — USA</p></div>
           </div>
         </div>
-
         <div class="contact-form reveal">
           <form id="main-form">
-            <div class="form-group">
-              <label>Full Name</label>
-              <input type="text" placeholder="John Doe" required>
-            </div>
-            <div class="form-group">
-              <label>Work Email</label>
-              <input type="email" placeholder="john@company.com" required>
-            </div>
+            <div class="form-group"><label>Full Name</label><input type="text" placeholder="John Doe" required></div>
+            <div class="form-group"><label>Work Email</label><input type="email" placeholder="john@company.com" required></div>
             <div class="form-group">
               <label>Service of Interest</label>
               <select required>
@@ -306,48 +280,34 @@
                 <option>General Inquiry</option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Message</label>
-              <textarea rows="4" placeholder="Describe your project..."></textarea>
-            </div>
+            <div class="form-group"><label>Message</label><textarea rows="4" placeholder="Describe your project..."></textarea></div>
             <button type="submit" class="submit-btn">Send Inquiry</button>
           </form>
         </div>
       </div>
     </div>
   </section>
-
   <footer>
     <p>&copy; 2025 Ashaltech Services. All rights reserved. | Cisco ACI · NDFC · Nexus</p>
   </footer>
-
   <script>
     const reveal = () => {
       const reveals = document.querySelectorAll('.reveal');
       reveals.forEach(el => {
         const windowHeight = window.innerHeight;
         const elementTop = el.getBoundingClientRect().top;
-        const elementVisible = 100;
-        if (elementTop < windowHeight - elementVisible) {
-          el.classList.add('active');
-        }
+        if (elementTop < windowHeight - 100) el.classList.add('active');
       });
     };
-
     window.addEventListener('scroll', reveal);
     window.addEventListener('load', reveal);
-
     document.getElementById('main-form').addEventListener('submit', function(e) {
       e.preventDefault();
       const btn = this.querySelector('.submit-btn');
-      const originalText = btn.textContent;
       btn.textContent = '✓ Message Sent';
       btn.style.background = '#10b981';
       this.reset();
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.background = '';
-      }, 3000);
+      setTimeout(() => { btn.textContent = 'Send Inquiry'; btn.style.background = ''; }, 3000);
     });
   </script>
 </body>
