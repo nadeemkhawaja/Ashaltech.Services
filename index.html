@@ -3,311 +3,998 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ashaltech Services | Elite Cisco Data Center Consulting</title>
+  <title>Ashaltech Services | Data Center, Compute &amp; AI Infrastructure Consulting</title>
+  <meta name="description" content="Ashaltech Services is a specialized infrastructure consulting firm delivering Cisco ACI, Nexus Dashboard/VXLAN fabrics, UCS compute, MDS storage networking, VMware virtualization, telemetry, Ansible/Terraform automation, and AI-ready data center solutions for the enterprise.">
+  <meta property="og:title" content="Ashaltech Services — Data Center, Compute & AI Infrastructure Consulting">
+  <meta property="og:description" content="Design, deployment, and migration services for Cisco data center networking, UCS compute, MDS storage networking, VMware virtualization, telemetry, automation, and AI-ready infrastructure.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="canonical" href="https://ashaltech.io/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Ashaltech Services",
+    "url": "https://ashaltech.io",
+    "logo": "https://ashaltech.io/logo.svg",
+    "email": "info@ashaltech.io",
+    "telephone": "+1-408-680-3938",
+    "description": "Specialized infrastructure consulting firm delivering Cisco ACI, Nexus Dashboard/VXLAN fabrics, UCS compute, MDS storage networking, VMware virtualization, telemetry, automation, and AI-ready data center solutions.",
+    "address": { "@type": "PostalAddress", "addressLocality": "Dallas", "addressRegion": "TX", "addressCountry": "US" },
+    "areaServed": "North America",
+    "knowsAbout": ["Cisco ACI", "Cisco Nexus Dashboard", "VXLAN EVPN", "Cisco Nexus", "Cisco UCS", "Cisco MDS", "VMware vSphere", "Network Telemetry", "Ansible", "Terraform", "AI Infrastructure"]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-deep: #030712;
-      --bg-surface: #0f172a;
-      --bg-card: rgba(30, 41, 59, 0.5);
-      --accent-primary: #0ea5e9;
-      --accent-secondary: #38bdf8;
-      --accent-glow: rgba(14, 165, 233, 0.15);
-      --text-main: #f8fafc;
+      --bg-surface: #0b1220;
+      --bg-raised: #101a2e;
+      --bg-card: rgba(23, 34, 56, 0.45);
+      --accent: #0ea5e9;
+      --accent-soft: #38bdf8;
+      --accent-deep: #0369a1;
+      --accent-glow: rgba(14, 165, 233, 0.16);
+      --ai-accent: #a78bfa;
+      --text-main: #f1f5f9;
       --text-dim: #94a3b8;
-      --text-muted: #64748b;
-      --border-subtle: rgba(255, 255, 255, 0.06);
-      --border-accent: rgba(14, 165, 233, 0.3);
+      --text-muted: #5b6b82;
+      --border-subtle: rgba(148, 163, 184, 0.10);
+      --border-accent: rgba(14, 165, 233, 0.35);
       --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --tr: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 
     body {
       background-color: var(--bg-deep);
       color: var(--text-main);
       font-family: var(--font-sans);
-      line-height: 1.6;
+      line-height: 1.65;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    .mesh-gradient {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.08) 0%, transparent 40%);
-      z-index: -1;
-      pointer-events: none;
+    ::selection { background: rgba(14, 165, 233, 0.35); }
+
+    /* ---------- Ambient background ---------- */
+    .mesh {
+      position: fixed; inset: 0; z-index: -2; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 45% at 18% 8%, rgba(14, 165, 233, 0.09) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 85% 30%, rgba(56, 189, 248, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 45% at 50% 100%, rgba(3, 105, 161, 0.08) 0%, transparent 60%);
+    }
+    .gridlines {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.5;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, black 20%, transparent 75%);
     }
 
+    /* ---------- Navigation ---------- */
     nav {
-      position: fixed;
-      top: 0; width: 100%;
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 6%;
-      z-index: 1000;
-      background: rgba(3, 7, 18, 0.8);
-      backdrop-filter: blur(12px);
+      position: fixed; top: 0; width: 100%; height: 74px; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 max(5%, 24px);
+      background: rgba(3, 7, 18, 0.72);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.3s ease;
     }
+    nav.scrolled { background: rgba(3, 7, 18, 0.94); }
 
     .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .logo-img { height: 32px; filter: drop-shadow(0 0 8px var(--accent-glow)); }
-    .logo-text { display: flex; flex-direction: column; }
-    .logo-name { font-weight: 800; font-size: 1.1rem; color: var(--text-main); }
-    .logo-tag { font-size: 0.65rem; text-transform: uppercase; color: var(--accent-primary); letter-spacing: 0.15em; font-weight: 700; }
-
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--text-dim); text-decoration: none; transition: var(--transition); }
-    .nav-links a:hover { color: var(--accent-secondary); }
-
-    .cta-btn {
-      background: var(--text-main);
-      color: var(--bg-deep);
-      padding: 10px 24px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: var(--transition);
+    .logo-img { height: 42px; filter: drop-shadow(0 0 10px var(--accent-glow)); }
+    .logo-mark {
+      display: none; width: 36px; height: 36px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+      align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1.15rem; color: #fff;
     }
-    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(255,255,255,0.1); }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.25; }
+    .logo-name { font-weight: 800; font-size: 1.08rem; color: var(--text-main); letter-spacing: -0.01em; }
+    .logo-tag { font-family: var(--font-mono); font-size: 0.58rem; text-transform: uppercase; color: var(--accent); letter-spacing: 0.22em; font-weight: 500; }
 
+    .nav-links { display: flex; gap: 34px; list-style: none; }
+    .nav-links a {
+      font-size: 0.86rem; font-weight: 500; color: var(--text-dim);
+      text-decoration: none; transition: var(--tr); position: relative; padding: 4px 0;
+    }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px;
+      background: var(--accent); border-radius: 2px; transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--text-main); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-right { display: flex; align-items: center; gap: 18px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 26px; border-radius: 8px; border: 1px solid transparent;
+      font-family: var(--font-sans); font-size: 0.88rem; font-weight: 700;
+      text-decoration: none; cursor: pointer; transition: var(--tr); white-space: nowrap;
+    }
+    .btn-primary { background: var(--accent); color: #04121d; }
+    .btn-primary:hover { background: var(--accent-soft); transform: translateY(-2px); box-shadow: 0 12px 28px rgba(14, 165, 233, 0.28); }
+    .btn-ghost { background: transparent; color: var(--text-main); border-color: rgba(148, 163, 184, 0.28); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent-soft); transform: translateY(-2px); }
+    .btn-nav { padding: 9px 20px; font-size: 0.82rem; }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none; padding: 8px;
+    }
+    .hamburger span { width: 24px; height: 2px; background: var(--text-main); border-radius: 2px; transition: var(--tr); }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; top: 74px; left: 0; right: 0; z-index: 999;
+      background: rgba(3, 7, 18, 0.98); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: none; flex-direction: column; padding: 12px 6% 28px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 15px 4px; color: var(--text-dim); text-decoration: none;
+      font-size: 1rem; font-weight: 600; border-bottom: 1px solid var(--border-subtle);
+    }
+    .mobile-menu a:last-of-type { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--accent-soft); }
+    .mobile-menu .btn { margin-top: 14px; }
+    .mobile-menu a.btn-primary, .mobile-menu a.btn-primary:hover { color: #04121d; border-bottom: none; }
+
+    /* ---------- Hero ---------- */
     .hero {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 6%;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 150px 6% 90px; position: relative; text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500;
+      color: var(--accent-soft); letter-spacing: 0.06em;
+      border: 1px solid var(--border-accent); border-radius: 100px;
+      padding: 7px 18px; margin-bottom: 30px;
+      background: rgba(14, 165, 233, 0.06);
+    }
+    .hero-badge .dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+      box-shadow: 0 0 10px var(--accent); animation: pulse 2.2s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 7vw, 4.6rem); font-weight: 800;
+      line-height: 1.06; letter-spacing: -0.035em; margin-bottom: 26px; max-width: 1000px;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(92deg, var(--accent-soft) 0%, var(--accent) 45%, var(--ai-accent) 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: clamp(1.02rem, 1.9vw, 1.22rem); font-weight: 300;
+      color: var(--text-dim); max-width: 720px; margin: 0 auto 44px;
+    }
+    .hero-sub strong { color: var(--text-main); font-weight: 600; }
+    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 74px; }
+
+    .hero-stats {
+      display: flex; gap: clamp(2.4rem, 6vw, 5.5rem); justify-content: center; flex-wrap: wrap;
+      padding-top: 42px; border-top: 1px solid var(--border-subtle);
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 800; letter-spacing: -0.02em;
+      background: linear-gradient(180deg, #fff 20%, var(--accent-soft) 120%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; margin-top: 4px; }
+
+    /* ---------- Tech strip ---------- */
+    .techstrip {
+      padding: 30px 6%; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);
+      background: rgba(11, 18, 32, 0.55);
+    }
+    .techstrip-inner {
+      max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 12px 14px; align-items: center;
+    }
+    .tech-pill {
+      font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500;
+      color: var(--text-dim); border: 1px solid var(--border-subtle);
+      padding: 7px 16px; border-radius: 100px; transition: var(--tr); background: rgba(3, 7, 18, 0.4);
+    }
+    .tech-pill:hover { color: var(--accent-soft); border-color: var(--border-accent); transform: translateY(-2px); }
+
+    /* ---------- Sections ---------- */
+    section { padding: 130px 6%; position: relative; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-head { max-width: 760px; margin-bottom: 70px; }
+    .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-mono); color: var(--accent); font-size: 0.76rem;
+      font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 16px;
+    }
+    .eyebrow::before { content: ""; width: 26px; height: 1px; background: var(--accent); }
+    .section-head.center .eyebrow::after { content: ""; width: 26px; height: 1px; background: var(--accent); }
+    .section-title { font-size: clamp(1.9rem, 4vw, 2.9rem); font-weight: 800; letter-spacing: -0.025em; line-height: 1.12; margin-bottom: 18px; }
+    .section-desc { color: var(--text-dim); font-size: 1.04rem; font-weight: 300; }
+
+    /* ---------- About ---------- */
+    #about { background: rgba(11, 18, 32, 0.4); border-top: 1px solid var(--border-subtle); }
+    .about-layout { display: grid; grid-template-columns: 1.15fr 1fr; gap: 84px; align-items: start; }
+    .about-text p { color: var(--text-dim); margin-bottom: 20px; font-weight: 300; font-size: 1.02rem; }
+    .about-text p strong { color: var(--text-main); font-weight: 600; }
+
+    .about-points { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 34px; }
+    .about-point {
+      display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 600;
+      padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px;
+    }
+    .about-point svg { flex-shrink: 0; color: var(--accent); }
+
+    .expertise-panel {
+      background: linear-gradient(180deg, rgba(23, 34, 56, 0.55), rgba(11, 18, 32, 0.65));
+      border: 1px solid var(--border-subtle); border-radius: 18px; padding: 38px;
+      position: sticky; top: 100px;
+    }
+    .expertise-panel h3 {
+      font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase;
+      letter-spacing: 0.16em; color: var(--accent); font-weight: 500; margin-bottom: 24px;
+    }
+    .exp-group { margin-bottom: 24px; }
+    .exp-group:last-child { margin-bottom: 0; }
+    .exp-group-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 12px; }
+    .exp-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .exp-pill {
+      font-size: 0.78rem; font-weight: 600; color: var(--text-dim);
+      background: rgba(3, 7, 18, 0.55); border: 1px solid var(--border-subtle);
+      padding: 6px 13px; border-radius: 100px; transition: var(--tr);
+    }
+    .exp-pill:hover { color: var(--accent-soft); border-color: var(--border-accent); }
+
+    /* ---------- Services ---------- */
+    .svc-grid { display: flex; flex-wrap: wrap; gap: 22px; justify-content: center; }
+    .svc-card {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: 16px; padding: 34px 30px; transition: var(--tr);
+      position: relative; overflow: hidden; display: flex; flex-direction: column;
+      width: calc((100% - 44px) / 3);
+    }
+    .svc-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+    .svc-card:hover { transform: translateY(-7px); border-color: var(--border-accent); background: rgba(23, 34, 56, 0.72); box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35); }
+    .svc-card:hover::before { opacity: 1; }
+
+    .svc-cat {
+      font-family: var(--font-mono); font-size: 0.64rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .svc-card.ai .svc-cat { color: var(--ai-accent); }
+    .svc-card.ai::before { background: linear-gradient(90deg, transparent, var(--ai-accent), transparent); }
+    .svc-card.ai:hover { border-color: rgba(167, 139, 250, 0.4); }
+
+    .svc-card.obs .svc-cat { color: #34d399; }
+    .svc-card.obs::before { background: linear-gradient(90deg, transparent, #34d399, transparent); }
+    .svc-card.obs:hover { border-color: rgba(52, 211, 153, 0.4); }
+    .svc-card.obs .svc-icon { background: rgba(52, 211, 153, 0.10); border-color: rgba(52, 211, 153, 0.35); color: #34d399; }
+
+    .svc-card.auto .svc-cat { color: #fbbf24; }
+    .svc-card.auto::before { background: linear-gradient(90deg, transparent, #fbbf24, transparent); }
+    .svc-card.auto:hover { border-color: rgba(251, 191, 36, 0.4); }
+    .svc-card.auto .svc-icon { background: rgba(251, 191, 36, 0.10); border-color: rgba(251, 191, 36, 0.35); color: #fbbf24; }
+
+    .svc-icon {
+      width: 48px; height: 48px; border-radius: 12px; margin-bottom: 22px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(14, 165, 233, 0.10); border: 1px solid var(--border-accent);
+      color: var(--accent-soft);
+    }
+    .svc-card.ai .svc-icon { background: rgba(167, 139, 250, 0.10); border-color: rgba(167, 139, 250, 0.35); color: var(--ai-accent); }
+    .svc-card h3 { font-size: 1.16rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
+    .svc-card p { color: var(--text-dim); font-size: 0.92rem; font-weight: 300; flex-grow: 1; }
+    .svc-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
+    .svc-tag {
+      font-family: var(--font-mono); font-size: 0.66rem; color: var(--text-muted);
+      border: 1px solid var(--border-subtle); padding: 4px 10px; border-radius: 5px;
+      background: rgba(3, 7, 18, 0.45);
     }
 
-    .hero-content { max-width: 1000px; text-align: center; }
-    .hero-label {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--accent-primary);
-      border: 1px solid var(--border-accent);
-      padding: 4px 12px;
-      border-radius: 100px;
-      margin-bottom: 24px;
-      background: rgba(14, 165, 233, 0.05);
+    /* ---------- Process ---------- */
+    #process { background: rgba(11, 18, 32, 0.4); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .step {
+      position: relative; padding: 32px 26px;
+      background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px;
+      transition: var(--tr);
     }
-
-    .hero-title {
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin-bottom: 24px;
-      background: linear-gradient(to bottom, #fff 30%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .step:hover { transform: translateY(-6px); border-color: var(--border-accent); }
+    .step-num {
+      font-family: var(--font-mono); font-size: 2.2rem; font-weight: 700;
+      background: linear-gradient(180deg, var(--accent-soft), var(--accent-deep));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      display: block; margin-bottom: 14px;
     }
+    .step h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: 10px; }
+    .step p { font-size: 0.88rem; color: var(--text-dim); font-weight: 300; }
 
-    .hero-sub { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--text-dim); max-width: 650px; margin: 0 auto 40px; }
-    .hero-actions { display: flex; gap: 16px; justify-content: center; }
-
-    section { padding: 140px 6%; position: relative; }
-    .section-container { max-width: 1200px; margin: 0 auto; }
-    .section-header { margin-bottom: 64px; }
-    .section-tag { font-family: var(--font-mono); color: var(--accent-primary); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 12px; display: block; }
-    .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.02em; }
-
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
-    .service-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      padding: 40px;
-      border-radius: 16px;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
+    /* ---------- Why us ---------- */
+    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .why-card {
+      padding: 34px 28px; text-align: left;
+      background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px;
+      transition: var(--tr);
     }
-    .service-card:hover { border-color: var(--border-accent); transform: translateY(-8px); background: rgba(30, 41, 59, 0.8); }
-    .service-icon { font-size: 2rem; margin-bottom: 24px; display: block; }
-    .service-card h3 { font-size: 1.25rem; margin-bottom: 16px; font-weight: 700; }
-    .service-card p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; }
+    .why-card:hover { transform: translateY(-6px); border-color: var(--border-accent); }
+    .why-card .why-icon {
+      width: 44px; height: 44px; border-radius: 11px; margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(14, 165, 233, 0.10); border: 1px solid var(--border-accent); color: var(--accent-soft);
+    }
+    .why-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+    .why-card p { font-size: 0.88rem; color: var(--text-dim); font-weight: 300; }
 
-    .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .expertise-list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .expertise-item { padding: 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
-    .expertise-item::before { content: "▹"; color: var(--accent-primary); }
+    /* ---------- Contact ---------- */
+    #contact { border-top: 1px solid var(--border-subtle); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 70px; align-items: start; }
+    .contact-info > p { color: var(--text-dim); font-weight: 300; margin-bottom: 40px; font-size: 1.02rem; }
+    .info-item { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 26px; }
+    .info-icon {
+      width: 44px; height: 44px; border-radius: 11px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(14, 165, 233, 0.10); border: 1px solid var(--border-accent); color: var(--accent-soft);
+    }
+    .info-item h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 700; margin-bottom: 2px; }
+    .info-item p, .info-item a { font-size: 0.98rem; color: var(--text-main); font-weight: 500; text-decoration: none; }
+    .info-item a:hover { color: var(--accent-soft); }
 
-    .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; }
-    .contact-form { background: var(--bg-surface); padding: 48px; border-radius: 24px; border: 1px solid var(--border-subtle); }
-    .form-group { margin-bottom: 24px; }
-    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--text-dim); }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; background: var(--bg-deep); border: 1px solid var(--border-subtle); padding: 14px 16px; border-radius: 8px; color: var(--text-main); font-family: var(--font-sans); font-size: 1rem; }
-    .submit-btn { width: 100%; padding: 16px; background: var(--accent-primary); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); }
-    .submit-btn:hover { background: var(--accent-secondary); transform: translateY(-2px); }
+    .contact-form {
+      background: linear-gradient(180deg, rgba(23, 34, 56, 0.5), rgba(11, 18, 32, 0.6));
+      padding: 46px; border-radius: 20px; border: 1px solid var(--border-subtle);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { margin-bottom: 22px; }
+    .form-group label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; color: var(--text-dim); }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; background: rgba(3, 7, 18, 0.65); border: 1px solid var(--border-subtle);
+      padding: 13px 16px; border-radius: 9px; color: var(--text-main);
+      font-family: var(--font-sans); font-size: 0.95rem; transition: border-color 0.25s ease;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--accent);
+    }
+    .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+    .submit-btn {
+      width: 100%; padding: 16px; background: var(--accent); color: #04121d;
+      border: none; border-radius: 9px; font-family: var(--font-sans);
+      font-size: 0.98rem; font-weight: 700; cursor: pointer; transition: var(--tr);
+    }
+    .submit-btn:hover { background: var(--accent-soft); transform: translateY(-2px); box-shadow: 0 12px 28px rgba(14, 165, 233, 0.25); }
+    .submit-btn:disabled { opacity: 0.7; cursor: wait; transform: none; }
+    #form-status { margin-top: 14px; font-size: 0.86rem; color: #f87171; }
+    #form-status a { color: var(--accent-soft); }
 
-    footer { padding: 60px 6%; border-top: 1px solid var(--border-subtle); text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+    /* ---------- Footer ---------- */
+    footer { border-top: 1px solid var(--border-subtle); background: rgba(3, 7, 18, 0.8); padding: 70px 6% 36px; }
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto 52px;
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 60px;
+    }
+    .footer-brand p { color: var(--text-dim); font-size: 0.9rem; font-weight: 300; margin-top: 18px; max-width: 340px; }
+    .footer-col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-muted); font-weight: 700; margin-bottom: 18px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 11px; }
+    .footer-col a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; transition: var(--tr); }
+    .footer-col a:hover { color: var(--accent-soft); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto; padding-top: 30px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+      color: var(--text-muted); font-size: 0.82rem;
+    }
+    .footer-bottom .mono { font-family: var(--font-mono); font-size: 0.72rem; }
 
-    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
+    /* ---------- Reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.2, 1, 0.3, 1), transform 0.7s cubic-bezier(0.2, 1, 0.3, 1); }
     .reveal.active { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.07s; } .d2 { transition-delay: 0.14s; } .d3 { transition-delay: 0.21s; }
 
-    @media (max-width: 968px) { .about-layout, .contact-grid { grid-template-columns: 1fr; gap: 48px; } .nav-links { display: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .hero-badge .dot { animation: none; }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1080px) {
+      .svc-card { width: calc((100% - 22px) / 2); }
+      .process-grid, .why-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 968px) {
+      .about-layout, .contact-grid { grid-template-columns: 1fr; gap: 52px; }
+      .expertise-panel { position: static; }
+      .nav-links, .nav-right .btn-nav { display: none; }
+      .hamburger { display: flex; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      section { padding: 96px 6%; }
+    }
+    @media (max-width: 620px) {
+      .process-grid, .why-grid, .form-row, .about-points { grid-template-columns: 1fr; }
+      .svc-card { width: 100%; }
+      .contact-form { padding: 32px 24px; }
+      .hero { padding-top: 130px; }
+      .hero-actions .btn { width: 100%; }
+    }
   </style>
 </head>
 <body>
-  <div class="mesh-gradient"></div>
-  <nav>
-    <a href="#" class="logo">
-      <img src="https://ashaltech.com/img/ashaltech-logo.png" alt="Ashaltech" class="logo-img" onerror="this.style.display='none'">
-      <div class="logo-text"><span class="logo-name">Ashaltech</span><span class="logo-tag">Services</span></div>
+  <div class="mesh"></div>
+  <div class="gridlines"></div>
+
+  <!-- ================= NAV ================= -->
+  <nav id="nav">
+    <a href="#" class="logo" aria-label="Ashaltech Services home">
+      <img src="logo.svg" alt="Ashaltech logo" class="logo-img"
+           onerror="this.style.display='none'; document.getElementById('logoMark').style.display='flex';">
+      <div class="logo-mark" id="logoMark">A</div>
+      <div class="logo-text">
+        <span class="logo-name">Ashaltech</span>
+        <span class="logo-tag">Services</span>
+      </div>
     </a>
     <ul class="nav-links">
-      <li><a href="#about">Expertise</a></li>
+      <li><a href="#about">Who We Are</a></li>
       <li><a href="#services">Services</a></li>
+      <li><a href="#process">Approach</a></li>
       <li><a href="#why">Why Us</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="#contact" class="cta-btn">Get Started</a>
-  </nav>
-  <section class="hero" id="hero">
-    <div class="hero-content">
-      <span class="hero-label">Cisco Authorized Consulting</span>
-      <h1 class="hero-title">Enterprise Data Center<br>Network Excellence</h1>
-      <p class="hero-sub">Specialized architecture, deployment, and migration for Cisco ACI, NDFC, and Nexus fabric environments.</p>
-      <div class="hero-actions">
-        <a href="#services" class="cta-btn" style="background: var(--accent-primary); color: white;">Explore Services</a>
-        <a href="#contact" class="cta-btn" style="background: transparent; border: 1px solid var(--border-subtle); color: white;">Schedule Call</a>
-      </div>
+    <div class="nav-right">
+      <a href="#contact" class="btn btn-primary btn-nav">Schedule a Consultation</a>
+      <button class="hamburger" id="hbg" aria-label="Toggle menu" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </section>
+  </nav>
+  <div class="mobile-menu" id="mm">
+    <a href="#about" onclick="toggleMenu()">Who We Are</a>
+    <a href="#services" onclick="toggleMenu()">Services</a>
+    <a href="#process" onclick="toggleMenu()">Approach</a>
+    <a href="#why" onclick="toggleMenu()">Why Us</a>
+    <a href="#contact" onclick="toggleMenu()">Contact</a>
+    <a href="#contact" class="btn btn-primary" onclick="toggleMenu()">Schedule a Consultation</a>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <span class="hero-badge"><span class="dot"></span>Networking · Compute · Storage · Virtualization · AI</span>
+    <h1>Enterprise Infrastructure,<br><span class="grad">Engineered for the AI Era</span></h1>
+    <p class="hero-sub">
+      Ashaltech Services designs, deploys, and migrates <strong>mission-critical data centers</strong> —
+      Cisco ACI &amp; VXLAN fabrics, UCS compute, MDS storage networking, VMware virtualization, and
+      <strong>AI-ready GPU infrastructure</strong> — with senior engineers on every engagement.
+    </p>
+    <div class="hero-actions">
+      <a href="#services" class="btn btn-primary">Explore Our Services</a>
+      <a href="#contact" class="btn btn-ghost">Schedule a Consultation</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Years of Experience</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">DC Projects Delivered</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Data Center Focused</div></div>
+      <div class="stat"><div class="stat-num">&lt;24h</div><div class="stat-label">Response Time</div></div>
+    </div>
+  </header>
+
+  <!-- ================= TECH STRIP ================= -->
+  <div class="techstrip">
+    <div class="techstrip-inner">
+      <span class="tech-pill">Cisco ACI</span>
+      <span class="tech-pill">Nexus 9000</span>
+      <span class="tech-pill">Nexus Dashboard</span>
+      <span class="tech-pill">VXLAN EVPN</span>
+      <span class="tech-pill">UCS X-Series</span>
+      <span class="tech-pill">Intersight</span>
+      <span class="tech-pill">VMware vSphere</span>
+      <span class="tech-pill">VMware VCF</span>
+      <span class="tech-pill">FlexPod / FlashStack</span>
+      <span class="tech-pill">MDS SAN</span>
+      <span class="tech-pill">GPU Fabrics</span>
+      <span class="tech-pill">RoCEv2</span>
+      <span class="tech-pill">gNMI Telemetry</span>
+      <span class="tech-pill">Ansible</span>
+      <span class="tech-pill">Terraform</span>
+    </div>
+  </div>
+
+  <!-- ================= ABOUT ================= -->
   <section id="about">
-    <div class="section-container">
+    <div class="container">
       <div class="about-layout">
         <div class="about-text reveal">
-          <span class="section-tag">Who We Are</span>
-          <h2 class="section-title">Specialized. Focused. Proven.</h2>
-          <p>We are a boutique Cisco data center consulting firm. We work exclusively on software-defined fabric design and modern spine-leaf architectures.</p>
-          <p>Our mission is to deliver complex, mission-critical infrastructure programs with surgical precision and zero disruption.</p>
+          <span class="eyebrow">Who We Are</span>
+          <h2 class="section-title">A Specialized Infrastructure Consulting Firm</h2>
+          <p>
+            Ashaltech Services is a <strong>boutique professional services firm</strong> focused exclusively on
+            enterprise data center infrastructure. We architect and deliver the platforms modern businesses
+            run on — software-defined network fabrics, unified compute, virtualization, and the
+            high-performance foundations required for AI workloads.
+          </p>
+          <p>
+            Our engineers have designed and deployed data centers across <strong>North America and the
+            Middle East</strong> — for financial services, healthcare, technology, and public sector
+            organizations. Every engagement is led by senior architects who stay hands-on from the first
+            whiteboard session to the final cutover.
+          </p>
+          <p>
+            We don't resell hardware and we don't hand off to a bench. We design it, we build it,
+            we document it, and we stand behind it.
+          </p>
+          <div class="about-points">
+            <div class="about-point">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Architecture-First Approach
+            </div>
+            <div class="about-point">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Senior Hands-On Delivery
+            </div>
+            <div class="about-point">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Zero-Downtime Migrations
+            </div>
+            <div class="about-point">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Full Design Documentation
+            </div>
+          </div>
         </div>
-        <div class="about-expertise reveal">
-          <div class="expertise-list">
-            <div class="expertise-item">Cisco ACI Expert</div>
-            <div class="expertise-item">NDFC / VXLAN</div>
-            <div class="expertise-item">Nexus 9K/7K/5K</div>
-            <div class="expertise-item">Spine-Leaf Design</div>
-            <div class="expertise-item">ACI Multi-Site</div>
-            <div class="expertise-item">VMware Integration</div>
+        <div class="expertise-panel reveal d1">
+          <h3>Core Expertise</h3>
+          <div class="exp-group">
+            <div class="exp-group-label">Networking</div>
+            <div class="exp-pills">
+              <span class="exp-pill">ACI Fabric &amp; Policy</span>
+              <span class="exp-pill">Nexus Dashboard</span>
+              <span class="exp-pill">VXLAN BGP EVPN</span>
+              <span class="exp-pill">Nexus 9K / 7K / 5K</span>
+              <span class="exp-pill">Multi-Site / Multi-Pod</span>
+              <span class="exp-pill">Spine-Leaf Design</span>
+            </div>
+          </div>
+          <div class="exp-group">
+            <div class="exp-group-label">Compute &amp; Virtualization</div>
+            <div class="exp-pills">
+              <span class="exp-pill">UCS X-Series</span>
+              <span class="exp-pill">Fabric Interconnects</span>
+              <span class="exp-pill">Cisco Intersight</span>
+              <span class="exp-pill">VMware vSphere / vCenter</span>
+              <span class="exp-pill">VMware Cloud Foundation</span>
+              <span class="exp-pill">FlexPod / FlashStack</span>
+              <span class="exp-pill">MDS 9000 SAN</span>
+            </div>
+          </div>
+          <div class="exp-group">
+            <div class="exp-group-label">AI Infrastructure</div>
+            <div class="exp-pills">
+              <span class="exp-pill">GPU Cluster Networking</span>
+              <span class="exp-pill">Lossless Ethernet / RoCEv2</span>
+              <span class="exp-pill">AI POD Architecture</span>
+              <span class="exp-pill">400G Fabric Design</span>
+            </div>
+          </div>
+          <div class="exp-group">
+            <div class="exp-group-label">Automation &amp; Observability</div>
+            <div class="exp-pills">
+              <span class="exp-pill">Ansible / Terraform</span>
+              <span class="exp-pill">Python &amp; REST APIs</span>
+              <span class="exp-pill">gNMI / NETCONF Telemetry</span>
+              <span class="exp-pill">CI/CD Pipelines</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <section id="services" style="background: rgba(15, 23, 42, 0.3);">
-    <div class="section-container">
-      <div class="section-header reveal">
-        <span class="section-tag">Our Capabilities</span>
-        <h2 class="section-title">Core Data Center Services</h2>
+
+  <!-- ================= SERVICES ================= -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">What We Do</span>
+        <h2 class="section-title">Services Across the Full Data Center Stack</h2>
+        <p class="section-desc">
+          From the network fabric to the hypervisor to the GPU cluster — one firm,
+          one accountable team, end to end.
+        </p>
       </div>
-      <div class="services-grid">
-        <div class="service-card reveal">
-          <span class="service-icon">🧠</span>
-          <h3>Cisco ACI Deployment</h3>
-          <p>Full lifecycle engagements: fabric architecture, policy modeling, and zero-downtime production cutovers.</p>
+      <div class="svc-grid">
+
+        <div class="svc-card reveal">
+          <div class="svc-cat">Networking</div>
+          <div class="svc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/><line x1="12" y1="7.2" x2="5.8" y2="17"/><line x1="12" y1="7.2" x2="18.2" y2="17"/><line x1="7.2" y1="19" x2="16.8" y2="19"/></svg>
+          </div>
+          <h3>Cisco ACI Design &amp; Deployment</h3>
+          <p>Full-lifecycle ACI engagements — fabric architecture, tenant and policy modeling, VMM integration, Multi-Pod and Multi-Site designs, and zero-downtime production cutovers.</p>
+          <div class="svc-tags"><span class="svc-tag">ACI</span><span class="svc-tag">APIC</span><span class="svc-tag">Multi-Site</span><span class="svc-tag">VMM</span></div>
         </div>
-        <div class="service-card reveal">
-          <span class="service-icon">🔗</span>
-          <h3>NDFC / VXLAN-EVPN</h3>
-          <p>Automated spine-leaf fabrics designed for modern NX-OS environments and scalable overlays.</p>
+
+        <div class="svc-card reveal d1">
+          <div class="svc-cat">Networking</div>
+          <div class="svc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1.5"/><rect x="3" y="15" width="18" height="5" rx="1.5"/><line x1="7" y1="9" x2="7" y2="15"/><line x1="17" y1="9" x2="17" y2="15"/><line x1="12" y1="9" x2="12" y2="15"/></svg>
+          </div>
+          <h3>Nexus Dashboard &amp; VXLAN EVPN</h3>
+          <p>Automated spine-leaf fabrics built with Cisco Nexus Dashboard (formerly NDFC) — underlay, BGP EVPN overlay, and day-2 operations engineered for scale and repeatability.</p>
+          <div class="svc-tags"><span class="svc-tag">Nexus Dashboard</span><span class="svc-tag">VXLAN</span><span class="svc-tag">BGP EVPN</span></div>
         </div>
-        <div class="service-card reveal">
-          <span class="service-icon">🏛️</span>
-          <h3>Nexus Design</h3>
-          <p>High-availability underlay design using Nexus 9k/7k/5k platforms, vPC, and FEX optimization.</p>
+
+        <div class="svc-card reveal d2">
+          <div class="svc-cat">Networking</div>
+          <div class="svc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          </div>
+          <h3>Nexus Switching &amp; Migration</h3>
+          <p>High-availability Nexus 9000 designs with vPC, and phased migrations from legacy three-tier networks to modern fabrics — with rollback plans and change windows respected.</p>
+          <div class="svc-tags"><span class="svc-tag">Nexus 9K</span><span class="svc-tag">vPC</span><span class="svc-tag">NX-OS</span></div>
         </div>
-        <div class="service-card reveal">
-          <span class="service-icon">🔄</span>
-          <h3>Network Migration</h3>
-          <p>Seamlessly transition from legacy three-tier architectures to modern spine-leaf fabrics.</p>
+
+        <div class="svc-card reveal">
+          <div class="svc-cat">Compute</div>
+          <div class="svc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="8" rx="1.5"/><rect x="3" y="13" width="18" height="8" rx="1.5"/><line x1="7" y1="7" x2="7.01" y2="7"/><line x1="7" y1="17" x2="7.01" y2="17"/><line x1="11" y1="7" x2="17" y2="7"/><line x1="11" y1="17" x2="17" y2="17"/></svg>
+          </div>
+          <h3>Cisco UCS &amp; Intersight</h3>
+          <p>UCS X-Series and B/C-Series deployment — fabric interconnect design, service profiles, firmware lifecycle, and Intersight-driven operations, including FlexPod and FlashStack converged stacks.</p>
+          <div class="svc-tags"><span class="svc-tag">UCS-X</span><span class="svc-tag">Fabric Interconnect</span><span class="svc-tag">Intersight</span><span class="svc-tag">FlexPod</span></div>
         </div>
-        <div class="service-card reveal">
-          <span class="service-icon">🔍</span>
-          <h3>Gap Assessment</h3>
-          <p>Redundancy reviews, capacity planning, and technology roadmaps aligned to your business.</p>
+
+        <div class="svc-card reveal d1">
+          <div class="svc-cat">Virtualization</div>
+          <div class="svc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+          </div>
+          <h3>VMware Design &amp; Migration</h3>
+          <p>vSphere and vCenter architecture, cluster builds and upgrades, VMware Cloud Foundation, and large-scale workload migrations — fully integrated with ACI VMM domains.</p>
+          <div class="svc-tags"><span class="svc-tag">vSphere</span><span class="svc-tag">vCenter</span><span class="svc-tag">VCF</span></div>
         </div>
-        <div class="service-card reveal">
-          <span class="service-icon">📐</span>
-          <h3>High-Level Design</h3>
-          <p>Vendor-quality HLD/LLD, topology diagrams, and verified as-built documentation.</p>
+
+        <div class="svc-card reveal d2">
+          <div class="svc-cat">Storage</div>
+          <div class="svc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg>
+          </div>
+          <h3>Storage Networking (MDS SAN)</h3>
+          <p>Cisco MDS 9000 fabric design and deployment — dual-fabric high availability, zoning and device aliases, and FC / NVMe-over-FC connectivity for enterprise arrays and converged stacks.</p>
+          <div class="svc-tags"><span class="svc-tag">MDS 9000</span><span class="svc-tag">Zoning</span><span class="svc-tag">NVMe/FC</span><span class="svc-tag">Dual Fabric</span></div>
+        </div>
+
+        <div class="svc-card ai reveal">
+          <div class="svc-cat">AI Infrastructure</div>
+          <div class="svc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><line x1="9" y1="1.5" x2="9" y2="6"/><line x1="15" y1="1.5" x2="15" y2="6"/><line x1="9" y1="18" x2="9" y2="22.5"/><line x1="15" y1="18" x2="15" y2="22.5"/><line x1="1.5" y1="9" x2="6" y2="9"/><line x1="1.5" y1="15" x2="6" y2="15"/><line x1="18" y1="9" x2="22.5" y2="9"/><line x1="18" y1="15" x2="22.5" y2="15"/></svg>
+          </div>
+          <h3>AI-Ready Infrastructure</h3>
+          <p>GPU cluster networking built on lossless Ethernet — RoCEv2, PFC/ECN tuning, non-blocking 400G fabrics, and AI POD architectures purpose-built for training and inference.</p>
+          <div class="svc-tags"><span class="svc-tag">GPU Fabrics</span><span class="svc-tag">RoCEv2</span><span class="svc-tag">400G</span><span class="svc-tag">AI PODs</span></div>
+        </div>
+
+        <div class="svc-card obs reveal d1">
+          <div class="svc-cat">Observability</div>
+          <div class="svc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 12 6.5 12 9.5 5 14.5 19 17.5 12 22 12"/></svg>
+          </div>
+          <h3>Telemetry &amp; Observability</h3>
+          <p>Streaming telemetry and real-time visibility across ACI, Nexus, and Nexus Dashboard fabrics — gNMI, NETCONF, and model-driven collection feeding analytics for proactive, AI-driven operations.</p>
+          <div class="svc-tags"><span class="svc-tag">gNMI</span><span class="svc-tag">NETCONF</span><span class="svc-tag">Streaming Telemetry</span><span class="svc-tag">Analytics</span></div>
+        </div>
+
+        <div class="svc-card auto reveal d2">
+          <div class="svc-cat">Automation</div>
+          <div class="svc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="7.5 7 3 12 7.5 17"/><polyline points="16.5 7 21 12 16.5 17"/><line x1="13.5" y1="5" x2="10.5" y2="19"/></svg>
+          </div>
+          <h3>Automation &amp; Infrastructure as Code</h3>
+          <p>Network automation with Ansible, Terraform, and Python — REST API integration, CI/CD pipelines, and repeatable Infrastructure-as-Code workflows for ACI, Nexus Dashboard, and NX-OS.</p>
+          <div class="svc-tags"><span class="svc-tag">Ansible</span><span class="svc-tag">Terraform</span><span class="svc-tag">Python</span><span class="svc-tag">CI/CD</span></div>
+        </div>
+
+        <div class="svc-card reveal d1">
+          <div class="svc-cat">Advisory</div>
+          <div class="svc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+          </div>
+          <h3>Data Center Assessment</h3>
+          <p>Infrastructure health checks, redundancy and gap analysis, capacity planning, and modernization roadmaps aligned to where your business is going — not just where it is.</p>
+          <div class="svc-tags"><span class="svc-tag">Gap Analysis</span><span class="svc-tag">Capacity</span><span class="svc-tag">Roadmap</span></div>
+        </div>
+
+        <div class="svc-card reveal d2">
+          <div class="svc-cat">Advisory</div>
+          <div class="svc-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><polyline points="14 2 14 7 19 7"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+          </div>
+          <h3>Design Documentation</h3>
+          <p>Vendor-grade High-Level and Low-Level Design packages, migration runbooks, and verified as-built documentation your operations team will actually use.</p>
+          <div class="svc-tags"><span class="svc-tag">HLD</span><span class="svc-tag">LLD</span><span class="svc-tag">As-Built</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROCESS ================= -->
+  <section id="process">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">How We Work</span>
+        <h2 class="section-title">A Disciplined, Proven Engagement Model</h2>
+        <p class="section-desc">Every project follows the same rigorous path — no surprises, no scope drift.</p>
+      </div>
+      <div class="process-grid">
+        <div class="step reveal">
+          <span class="step-num">01</span>
+          <h3>Assess</h3>
+          <p>Discovery workshops, current-state analysis, and requirements gathering with your stakeholders.</p>
+        </div>
+        <div class="step reveal d1">
+          <span class="step-num">02</span>
+          <h3>Architect</h3>
+          <p>HLD and LLD development, bill-of-materials validation, and design reviews aligned to Cisco Validated Designs.</p>
+        </div>
+        <div class="step reveal d2">
+          <span class="step-num">03</span>
+          <h3>Deploy</h3>
+          <p>Staged implementation, phased migration with rollback plans, and validation testing at every gate.</p>
+        </div>
+        <div class="step reveal d3">
+          <span class="step-num">04</span>
+          <h3>Transfer</h3>
+          <p>Knowledge transfer, as-built documentation, day-2 runbooks, and post-deployment support.</p>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- ================= WHY US ================= -->
+  <section id="why">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Why Ashaltech</span>
+        <h2 class="section-title">Senior Expertise. Proven Results.</h2>
+        <p class="section-desc">
+          Focused, senior-level engineering on every engagement — delivering architectures that are
+          scalable, resilient, and built to last.
+        </p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <div class="why-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h3>Senior Engineers Only</h3>
+          <p>The architect who designs your fabric is the one who deploys it. No bench rotation, no hand-offs to juniors.</p>
+        </div>
+        <div class="why-card reveal d1">
+          <div class="why-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <h3>Cisco Validated</h3>
+          <p>Designs aligned to Cisco Validated Designs and vendor best practices — not improvised in production.</p>
+        </div>
+        <div class="why-card reveal d2">
+          <div class="why-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 13.5"/></svg>
+          </div>
+          <h3>Zero-Downtime Methodology</h3>
+          <p>Phased cutovers, validated rollback plans, and disciplined change control — your business keeps running.</p>
+        </div>
+        <div class="why-card reveal d3">
+          <div class="why-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><polyline points="14 2 14 7 19 7"/><polyline points="9.5 14 11.5 16 15 12"/></svg>
+          </div>
+          <h3>Documentation Included</h3>
+          <p>Every engagement closes with complete HLD/LLD packages and as-builts — knowledge stays with your team.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
   <section id="contact">
-    <div class="section-container">
+    <div class="container">
       <div class="contact-grid">
         <div class="contact-info reveal">
-          <span class="section-tag">Get In Touch</span>
-          <h2 class="section-title">Let's Solve Your Infrastructure Challenges</h2>
-          <p style="color: var(--text-dim); margin-bottom: 40px;">Planning an upgrade or need a second opinion? We respond within one business day.</p>
+          <span class="eyebrow">Get In Touch</span>
+          <h2 class="section-title">Let's Talk About Your Infrastructure</h2>
+          <p>Planning a modernization, an AI buildout, or need a second opinion on a design? Tell us about your project — we respond within one business day.</p>
           <div class="info-item">
-            <div class="info-icon">📧</div>
-            <div class="info-content"><h4>Email Us</h4><p>ashaltech.services@yahoo.com</p></div>
+            <div class="info-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div><h4>Email</h4><a href="mailto:info@ashaltech.io">info@ashaltech.io</a></div>
           </div>
           <div class="info-item">
-            <div class="info-icon">📍</div>
-            <div class="info-content"><h4>Location</h4><p>Dallas, TX — USA</p></div>
+            <div class="info-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div><h4>Phone</h4><a href="tel:+14086803938">408.680.3938</a></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div><h4>Location</h4><p>Dallas, TX (DFW) — USA</p></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 13.5"/></svg>
+            </div>
+            <div><h4>Response Time</h4><p>Within 1 business day</p></div>
           </div>
         </div>
-        <div class="contact-form reveal">
-          <form id="main-form">
-            <div class="form-group"><label>Full Name</label><input type="text" placeholder="John Doe" required></div>
-            <div class="form-group"><label>Work Email</label><input type="email" placeholder="john@company.com" required></div>
+        <div class="contact-form reveal d1">
+          <form id="main-form" action="contact.php" method="post">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; height:0; width:0; opacity:0;">
+            <div class="form-row">
+              <div class="form-group"><label for="f-name">Full Name</label><input id="f-name" name="name" type="text" placeholder="Jane Smith" required></div>
+              <div class="form-group"><label for="f-company">Company</label><input id="f-company" name="company" type="text" placeholder="Acme Corp"></div>
+            </div>
+            <div class="form-group"><label for="f-email">Work Email</label><input id="f-email" name="email" type="email" placeholder="jane@company.com" required></div>
             <div class="form-group">
-              <label>Service of Interest</label>
-              <select required>
-                <option value="">Select a service...</option>
-                <option>Cisco ACI Design</option>
-                <option>NDFC / VXLAN Fabric</option>
-                <option>Nexus Design</option>
-                <option>Data Center Migration</option>
-                <option>Assessment</option>
+              <label for="f-service">Service of Interest</label>
+              <select id="f-service" name="service" required>
+                <option value="">Select a service…</option>
+                <option>Cisco ACI Design &amp; Deployment</option>
+                <option>Nexus Dashboard / VXLAN EVPN</option>
+                <option>Nexus Switching &amp; Migration</option>
+                <option>Cisco UCS &amp; Compute</option>
+                <option>VMware &amp; Virtualization</option>
+                <option>Storage Networking (MDS / SAN)</option>
+                <option>AI-Ready Infrastructure</option>
+                <option>Telemetry &amp; Observability</option>
+                <option>Automation (Ansible / Terraform)</option>
+                <option>Assessment &amp; Documentation</option>
                 <option>General Inquiry</option>
               </select>
             </div>
-            <div class="form-group"><label>Message</label><textarea rows="4" placeholder="Describe your project..."></textarea></div>
-            <button type="submit" class="submit-btn">Send Inquiry</button>
+            <div class="form-group"><label for="f-msg">Project Details</label><textarea id="f-msg" name="message" rows="4" placeholder="Tell us about your environment and goals…"></textarea></div>
+            <button type="submit" class="submit-btn">Send Inquiry →</button>
+            <p id="form-status" role="status"></p>
           </form>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- ================= FOOTER ================= -->
   <footer>
-    <p>&copy; 2025 Ashaltech Services. All rights reserved. | Cisco ACI · NDFC · Nexus</p>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <img src="logo.svg" alt="Ashaltech logo" class="logo-img" onerror="this.style.display='none';">
+          <div class="logo-text">
+            <span class="logo-name">Ashaltech</span>
+            <span class="logo-tag">Services</span>
+          </div>
+        </a>
+        <p>Specialized consulting for enterprise data center networking, compute, virtualization, and AI-ready infrastructure.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">ACI &amp; VXLAN Fabrics</a></li>
+          <li><a href="#services">UCS &amp; Compute</a></li>
+          <li><a href="#services">Storage Networking (MDS)</a></li>
+          <li><a href="#services">VMware Virtualization</a></li>
+          <li><a href="#services">AI-Ready Infrastructure</a></li>
+          <li><a href="#services">Telemetry &amp; Automation</a></li>
+          <li><a href="#services">Assessment &amp; Documentation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">Who We Are</a></li>
+          <li><a href="#process">Our Approach</a></li>
+          <li><a href="#why">Why Ashaltech</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Ashaltech Services. All rights reserved.</span>
+      <span class="mono">ACI · Nexus Dashboard · UCS · MDS · VMware · Automation · AI — ashaltech.io</span>
+    </div>
   </footer>
+
   <script>
-    const reveal = () => {
-      const reveals = document.querySelectorAll('.reveal');
-      reveals.forEach(el => {
-        const windowHeight = window.innerHeight;
-        const elementTop = el.getBoundingClientRect().top;
-        if (elementTop < windowHeight - 100) el.classList.add('active');
+    // Nav darkens on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Mobile menu
+    function toggleMenu() {
+      document.getElementById('mm').classList.toggle('open');
+      document.getElementById('hbg').classList.toggle('active');
+    }
+
+    // Reveal on scroll
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); obs.unobserve(e.target); } }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Contact form — tries the local PHP handler first (Hostinger), then the
+    // FormSubmit relay (works on any host). Both deliver to info@ashaltech.io.
+    async function sendViaPhp(form) {
+      const res = await fetch('contact.php', { method: 'POST', body: new FormData(form) });
+      const data = await res.json();
+      return res.ok && data.ok === true;
+    }
+    async function sendViaRelay(form) {
+      const fd = new FormData(form);
+      const res = await fetch('https://formsubmit.co/ajax/info@ashaltech.io', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: fd.get('name'),
+          company: fd.get('company'),
+          email: fd.get('email'),
+          service: fd.get('service'),
+          message: fd.get('message'),
+          _subject: 'Website inquiry — ' + (fd.get('service') || 'General'),
+          _honey: fd.get('website'),
+          _template: 'table'
+        })
       });
-    };
-    window.addEventListener('scroll', reveal);
-    window.addEventListener('load', reveal);
-    document.getElementById('main-form').addEventListener('submit', function(e) {
+      const data = await res.json();
+      return res.ok && (data.success === true || data.success === 'true');
+    }
+    document.getElementById('main-form').addEventListener('submit', async function (e) {
       e.preventDefault();
       const btn = this.querySelector('.submit-btn');
-      btn.textContent = '✓ Message Sent';
-      btn.style.background = '#10b981';
-      this.reset();
-      setTimeout(() => { btn.textContent = 'Send Inquiry'; btn.style.background = ''; }, 3000);
+      const status = document.getElementById('form-status');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      status.textContent = '';
+      let sent = false;
+      try { sent = await sendViaPhp(this); } catch (err) { /* PHP handler unavailable */ }
+      if (!sent) {
+        try { sent = await sendViaRelay(this); } catch (err) { /* relay unavailable */ }
+      }
+      if (sent) {
+        btn.textContent = '✓ Message Sent';
+        btn.style.background = '#10b981';
+        this.reset();
+      } else {
+        btn.textContent = 'Send Inquiry →';
+        status.innerHTML = 'Could not send right now — please email <a href="mailto:info@ashaltech.io">info@ashaltech.io</a> or call <a href="tel:+14086803938">408.680.3938</a>.';
+      }
+      btn.disabled = false;
+      setTimeout(() => { btn.textContent = 'Send Inquiry →'; btn.style.background = ''; }, 3500);
     });
   </script>
 </body>
